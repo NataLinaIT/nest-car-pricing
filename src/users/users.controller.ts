@@ -7,7 +7,7 @@ import { Controller,
   Delete,
   Query,
   NotFoundException,
-  Session
+  Session,
 } from '@nestjs/common'
 import { CreateUserDto } from './dtos/create-user.dto'
 import { UpdateUserDto } from './dtos/update-user.dto'
@@ -16,6 +16,7 @@ import { AuthService } from './auth.service'
 import { Serialize } from "../interceptors/serialize.interceptors"
 import { UserDto } from '../users/dtos/user.dto'
 import { CurrentUser } from "./decorators/current-user.decorator";
+import { User } from "./user.entity";
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -29,9 +30,9 @@ export class UsersController {
   // whoAmi(@Session() session: any) {
   //   return this.usersService.findOne(session.userId)
   // }
-  
+
   @Get('/whoami')
-  whoAmi(@CurrentUser() user: string) {
+  whoAmi(@CurrentUser() user: User) {
     return user
   }
 
